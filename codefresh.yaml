@@ -1,0 +1,18 @@
+version: '1.0'
+steps:
+  build:
+    type: build
+    dockerfile: Dockerfile
+    image_name: myrepo/myapp
+    tag: latest
+  test:
+    image: node:14
+    commands:
+      - npm install
+      - npm test
+  deploy:
+    type: helm
+    arguments:
+      chart_name: ./helm-chart
+      release_name: my-app
+      kube_context: my-cluster
